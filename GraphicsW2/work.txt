@@ -1,0 +1,89 @@
+//mat
+
+double** makIdentityMat(void) {
+int i, j;
+double** I;
+I=(double**)malloc(4*sizeof(double*));
+for(i=0; i<4; i++) {
+I[i]=(double*)malloc(4*sizeof(double));
+}
+for(i=0; i<4; i++) for(j=0; j<4; j++)
+I[i][j] = ( i==j ? 1 : 0 );
+return( I );
+}
+
+double** makScaleMat(
+      double a, double b, double c
+    ) {
+double** S = makIdentityMat();
+S[0][0] = a;
+S[1][1] = b;
+S[2][2] = c;
+return( S );
+}
+
+
+
+double** makRotMatX(double o) {
+	double r = o * 3.141592 / 180;
+	double** R = makIdentityMat();
+	R[1][1]=cos(r);
+	R[1][2]=-1*sin(r);
+	R[2][1]=sin(r);
+	R[2][2]=cos(r);
+	return(R);
+}
+
+double** makRotMatY(double o) {
+	double r = o * 3.141592 / 180;
+	double** R = makIdentityMat();
+	R[0][0]=cos(r);
+	R[0][2]=-1*sin(r);
+	R[2][0]=sin(r);
+	R[2][2]=cos(r);
+	return(R);
+}
+
+double** makRotMatZ(double o) {
+	double r = o * 3.141592 / 180;
+	double** R = makIdentityMat();
+	R[0][0]=cos(r);
+	R[0][1]=-1*sin(r);
+	R[1][0]=sin(r);
+	R[1][1]=cos(r);
+	return(R);
+}
+
+double** makTransMat(
+      double a, double b, double c
+    ) {
+double** T = makIdentityMat();
+T[0][3]=a;
+T[1][3]=b;
+T[2][3]=c;
+return(T);
+}
+
+//C = A * B
+//C is m x o, A is m x n, B is n x o
+void multMat(
+  double** C, double** A, double** B
+  int m, int n, int o ) {
+int i, j, k;
+for(i=0, i<m, i++) for(j=0; j<o; j++) {
+C[i][j]=0;
+for(k=0; k<n; k++)
+      C[i][j]+=B[k][j]*A[i][k];
+}
+}
+
+[a_0,0|a_0,1|a_0,2]  [b_0,0|b_0,1]
+[a_1,0|a_1,1|a_1,2]  [b_1,0|b_1,1]
+[a_2,0|a_2,1|a_2,1]  [b_2,0|b_2,1]
+
+[ b_0,0*a_0,0+b_1,0*a_0,1+b2,0*a02|
+b_0,1*a_0,0+b_1,0*a_0,1+b2,0*a02
+[b_0,0*a_0,1+...
+[
+
+c_i,j = b_k,j*a_i,k
