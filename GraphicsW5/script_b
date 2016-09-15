@@ -1,0 +1,17 @@
+sphere
+0 0 100
+sphere
+0 110 75
+sphere
+0 200 50
+ident
+#xrotate
+#40
+#yrotate
+#40
+translate
+225 225 0
+apply
+save
+pics.png
+quit
